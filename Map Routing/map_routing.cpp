@@ -36,7 +36,7 @@ vector<pair<int, double>> map_routing::getFilteredNodes(double x, double y, doub
 
 	return filteredNodes;
 }
-/* map_routing.cpp */
+
 Output map_routing::dijkstra(Graph& map, vector<Edge>& edges)
 {
 	vector<int> parent(map.size(), -1);

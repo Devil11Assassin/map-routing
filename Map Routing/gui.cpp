@@ -8,18 +8,13 @@ RenderWindow gui::window;
 Event gui::event;
 
 vector<Query> gui::queries;
-vector<Output> gui::outputs;
+vector<pair<string, Output>> gui::outputs;
 
 Cursor gui::cursorArrow, gui::cursorHand, gui::cursorCross;
 
 vector<string> gui::mapNames = { "Oldenburg", "San Joaquin", "San Francisco", "North America" };
 
-vector<string> gui::mapPaths = {
-    "TEST CASES\\[2] Medium Cases\\Input\\OLMap.txt",
-    "TEST CASES\\[2] Medium Cases\\Input\\TGMap.txt",
-    "TEST CASES\\[3] Large Cases\\Input\\SFMap.txt",
-    "TEST CASES\\[3] Large Cases\\Input\\NAMap.txt"
-};
+vector<string> gui::mapPaths = { "data\\OLMap.txt", "data\\TGMap.txt", "data\\SFMap.txt", "data\\NAMap.txt" };
 
 vector<Graph> gui::maps;
 vector<vector<Edge>> gui::mapsEdges;
@@ -42,7 +37,6 @@ const int gui::DOWN_BOUNDARY = UP_BOUNDARY + WINDOW_HEIGHT;
 Font Buttons::font;
 
 //buttons
-
 Buttons::Buttons(vector<string> strings, RenderWindow& window) 
 {
     font.loadFromFile("CONSOLA.TTF");
@@ -125,6 +119,7 @@ void Buttons::draw(RenderWindow& window)
     }
 }
 
+//gui
 void gui::loadMaps()
 {
     maps.resize(4);
@@ -197,7 +192,7 @@ void gui::calculateMenuVerticesThread(int mapIndex)
 
     // Creating the normalized lines
     info.vertexCount = edges.size() * 2;
-    info.edgeVertices = new Vertex[info.vertexCount];
+    info.edgeVertices.resize(info.vertexCount);
 
     int index = 0;
     int nodeIndex = 0;
@@ -238,15 +233,6 @@ void gui::calculateMenuVertices()
 
     for (auto& t : threads)
         t.join();
-}
-
-void gui::uninitialize()
-{
-    for (int i = 0; i < 4; i++)
-    {
-        delete[] menuInfos[i].edgeVertices;
-        menuInfos[i].edgeVertices = nullptr;
-    }
 }
 
 void gui::initialization()
@@ -291,17 +277,15 @@ void gui::initialization()
     }
 
     window.close();
-    uninitialize();
 }
 
-//gui
 void gui::mapSelectionMenu() 
 {
     View view(Vector2f(0, 0), Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
     window.setView(window.getDefaultView());
 
     Texture bgTxt;
-    bgTxt.loadFromFile("textures/bg.jpg");
+    bgTxt.loadFromFile("textures/map_sel_bg.jpg");
     Sprite bg(bgTxt);
 
     Buttons buttons(mapNames, window);
@@ -742,7 +726,7 @@ void gui::mapRoutingMenu()
                 isDrawing = true;
 
                 queries.push_back(query);
-                outputs.push_back(output);
+                outputs.emplace_back(file_io::getCurTime(), output);
             }
 
             getPath = false;
@@ -769,7 +753,7 @@ void gui::mapRoutingMenu()
         window.clear();
 
         window.setView(viewMap);
-        window.draw(info.edgeVertices, info.vertexCount, Lines);
+        window.draw(info.edgeVertices.data(), info.vertexCount, Lines);
         window.draw(walkPath, 4, Lines);
         window.draw(startCircle);
         window.draw(destCircle);

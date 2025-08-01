@@ -135,24 +135,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bonus.cpp" />
     <ClCompile Include="file_io.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map_routing.cpp" />
-    <ClCompile Include="math.cpp" />
-    <ClCompile Include="testing.cpp" />
-    <ClCompile Include="visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bonus.h" />
     <ClInclude Include="file_io.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="map_routing.h" />
-    <ClInclude Include="math.h" />
-    <ClInclude Include="testing.h" />
     <ClInclude Include="types.h" />
-    <ClInclude Include="visualizer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

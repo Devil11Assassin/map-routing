@@ -1,8 +1,7 @@
-#include "testing.h"
 #include "gui.h"
+#include "file_io.h"
 
 int main()
 {
-	//Testing::runTests();
 	gui::initialization();
 }

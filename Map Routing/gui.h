@@ -25,7 +25,7 @@ class gui
 		double width, height;
 
 		int vertexCount = 0;
-		sf::Vertex *edgeVertices;
+		vector<sf::Vertex> edgeVertices;
 		vector<int> nodesDrawn;
 		vector<int> edgesDrawn;
 	};
@@ -34,7 +34,7 @@ class gui
 	static sf::Event event;
 
 	static vector<Query> queries;
-	static vector<Output> outputs;
+	static vector<pair<string, Output>> outputs;
 
 	static vector<string> mapNames;
 	static vector<string> mapPaths;
@@ -55,7 +55,6 @@ class gui
 	static void calculateMenuVertices();
 	static void mapSelectionMenu();
 	static void mapRoutingMenu();
-	static void uninitialize();
 
 public:
 	static sf::Cursor cursorArrow, cursorHand, cursorCross;

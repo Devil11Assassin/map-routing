@@ -1,12 +1,11 @@
 #pragma once
 #include "types.h"
-#include <vector>
-#include <fstream>
-#include <iomanip>
 
 class file_io
 {
+	static string getCurTimeFileName();
 public:
-	static void saveOutputs(vector<Query> &queries, vector<Output> &outputs, string mapName);
+	static string getCurTime();
+	static void saveOutputs(vector<Query> &queries, vector<pair<string, Output>> &outputs, string mapName);
 };
 
